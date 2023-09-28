@@ -75,5 +75,19 @@ namespace SparkyNUnitTest
             //Assert.That(result, Is.EqualTo(15.9));
             Assert.AreEqual(15.9, result, .2); //double delta, is a range
         }
+
+        [Test]
+        public void OddRanger_InputMinAndMaxRange_ReturnsValidOddNumberRange()
+        {
+            //Arrange
+            Calculator calc = new();
+            List<int> expected = new() { 5, 7, 9 };
+
+            //Act
+            List<int> result = calc.GetOddRange(5, 10);
+
+            //Assert
+            Assert.That(result, Is.EquivalentTo(expected));
+        }
     }
 }
