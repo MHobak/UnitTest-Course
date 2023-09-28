@@ -24,11 +24,14 @@ namespace SparkyNUnitTest
 
             //Assert
             //string methods and helpers to validate strings
-            Assert.That(customer.GreetMessage, Is.EqualTo("Hello, Ben Spark"));
-            Assert.That(customer.GreetMessage, Does.Contain("ben Spark").IgnoreCase); //without IgnoreCase the test will fail
-            Assert.That(customer.GreetMessage, Does.StartWith("Hello,"));
-            Assert.That(customer.GreetMessage, Does.EndWith("Spark"));
-            Assert.That(customer.GreetMessage, Does.Match("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+")); //using regular expression
+            Assert.Multiple(() =>
+            {
+                Assert.That(customer.GreetMessage, Is.EqualTo("Hello, Ben Spark"));
+                Assert.That(customer.GreetMessage, Does.Contain("ben Spark").IgnoreCase); //without IgnoreCase the test will fail
+                Assert.That(customer.GreetMessage, Does.StartWith("Hello,"));
+                Assert.That(customer.GreetMessage, Does.EndWith("Spark"));
+                Assert.That(customer.GreetMessage, Does.Match("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+")); //using regular expression
+            });
         }
 
         [Test]
