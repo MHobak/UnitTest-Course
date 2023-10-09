@@ -51,5 +51,33 @@ namespace SparkyNUnitTest
             int result = customer.Discount;
             Assert.That(result, Is.InRange(10, 25));
         }
+
+        [Test]
+        public void GreetMessage_GreetedWithoutLastName_ReturnsNotNull()
+        {
+            customer.GreetCombineNames("ben", "");
+            Assert.IsNotNull(customer.GreetMessage);
+            Assert.IsFalse(string.IsNullOrEmpty(customer.GreetMessage));
+        }
+
+        [Test]
+        public void GreetCheker_EmptyFirstName_ThrowsException()
+        {
+            var exceptionDetails = Assert.Throws<ArgumentException>(() => customer.GreetCombineNames("", "spark"));
+            Assert.That(exceptionDetails.Message, Is.EqualTo("Empty First Name"));
+
+            //alternativa enn un solo metodo
+            Assert.That(() => customer.GreetCombineNames("", "spark"), 
+                Throws.ArgumentException.With.Message.EqualTo("Empty First Name"));
+
+            //Two ways to check just if an argument exception is thrown,
+            //and not check for the message
+            #region Exception Is Thrown
+            Assert.Throws<ArgumentException>(() => customer.GreetCombineNames("", "spark"));
+
+            Assert.That(() => customer.GreetCombineNames("", "spark"),
+                Throws.ArgumentException);
+            #endregion
+        }
     }
 }
