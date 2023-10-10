@@ -14,21 +14,26 @@ namespace SparkyNUnitTest
         }
 
         [Test]
-        public void GetFibonnacciNumbers_Input1_ValidList()
+        public void FiboChecker_Input1_ReturnsFiboSeries()
         {
-            fibo.Range = 1; 
-            var series = fibo.GetFiboSeries();
+            //Arrange
+            fibo.Range = 1;
+            List<int> expectedRange = new() { 0 };
 
+            //Act
+            var result = fibo.GetFiboSeries();
+
+            //Assert
             Assert.Multiple(() => 
             {
-                Assert.That(series, Is.Not.Empty); //should not be empty
-                Assert.Contains(0, series); //should contain number 0
-                Assert.That(series, Is.Ordered); //should be ordered
+                Assert.That(result, Is.Not.Empty); //should not be empty
+                Assert.That(result, Is.Ordered); //should be ordered
+                Assert.That(result, Is.EqualTo(expectedRange)); //should contain number 0
             });
         }
 
         [Test]
-        public void GetFibonnacciNumbers_Input6_ValidList()
+        public void FiboChecker_Input6_ReturnsFiboSeries()
         {
             //Arrange
             fibo.Range = 6;
@@ -41,8 +46,10 @@ namespace SparkyNUnitTest
             Assert.Multiple(() =>
             {
                 Assert.Contains(3, series);
-                Assert.IsTrue(series.Count == 6);
-                Assert.That(series, Is.Not.Contains(4));
+                //Assert.IsTrue(series.Count == 6);
+                Assert.That(series.Count, Is.EqualTo(6));
+                //Assert.That(series, Is.Not.Contains(4));
+                Assert.That(series, Has.No.Contain(4));
                 Assert.That(series, Is.EquivalentTo(fibonacci));
             });
         }
